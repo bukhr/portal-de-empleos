@@ -18,6 +18,8 @@ Plataforma pública que centraliza las ofertas laborales publicadas por empresas
 * How to run the test suite
 * Services (job queues, cache servers, search engines, etc.)
 
-## Despliegue
+## Diagrama ER
 
-* Deployment instructions
+Para este Pre-MVP se ha propuesto la siguiente modelación:
+
+![1748981624298](image/README/1748981624298.png)
