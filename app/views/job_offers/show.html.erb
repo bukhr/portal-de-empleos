@@ -1,0 +1,77 @@
+<section class="bg-gray-50 py-12 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+      <div class="mb-8">
+        <%= link_to job_offers_path, class: "text-primary hover:text-primary/80 font-semibold flex items-center gap-2" do %>
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Volver a ofertas
+        <% end %>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Información principal -->
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold text-gray-900 mb-4"><%= @job_offer.name %></h1>
+          <div class="flex items-center gap-2 mb-4">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0c-3.866 0-7 3.134-7 7 0 1.657 1.343 3 3 3h8c1.657 0 3-1.343 3-3 0-3.866-3.134-7-7-7z" />
+            </svg>
+            <span>
+              <%= link_to @job_offer.company.name, "#{@job_offer.company}/trabaja-con-nosotros", target: "_blank", rel: "noopener", class: "font-semibold text-primary hover:underline" %>
+            </span>
+          </div>
+          
+          <div class="flex flex-wrap gap-4 mb-8">
+            <% if @job_offer.job_area.present? %>
+              <div class="flex items-center text-gray-600">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 8c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zm11 0c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zm-5 8c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zm-6 0c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3z" />
+                </svg>
+                <span><%= @job_offer.job_area %></span>
+              </div>
+            <% end %>
+            <div class="flex items-center text-gray-600">
+              <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0c-3.866 0-7 3.134-7 7 0 1.657 1.343 3 3 3h8c1.657 0 3-1.343 3-3 0-3.866-3.134-7-7-7z" />
+              </svg>
+                <span><%= @job_offer.company.country %></span>
+            </div>
+            <div class="flex items-center text-gray-600">
+              <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span><%= @job_offer.job_type&.humanize %></span>
+            </div>
+            <div class="flex items-center text-gray-600">
+              <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4V7a4 4 0 00-8 0v3m8 0a4 4 0 01-8 0m8 0v3a4 4 0 01-8 0V7" />
+              </svg>
+              <span><%= pluralize(@job_offer.vacancies_count, 'vacante') %></span>
+            </div>
+          </div>
+
+          <% if @job_offer.description.present? %>
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold text-gray-900 mb-4">Desafíos del cargo</h2>
+              <div class="prose max-w-none">
+                <%= simple_format @job_offer.description %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Sidebar con botón de postulación -->
+        <div class="md:w-64">
+          <div class="bg-gray-50 rounded-lg p-6 sticky top-8">
+            <div class="text-center mb-6">
+              <p class="text-sm text-gray-500 mb-2">Publicado el <%= @job_offer.published_at&.strftime('%d/%m/%Y') %></p>
+            </div>
+            <%= link_to "Postular ahora", safe_external_url(@job_offer.external_url), target: '_blank', class: "w-full bg-primary hover:bg-primary/90 font-semibold px-6 py-3 rounded-lg shadow transition text-center block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

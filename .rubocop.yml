@@ -1,8 +1,49 @@
-# Omakase Ruby styling for Rails
+---
+inherit_from: .rubocop_todo.yml
+require: rubocop-rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+plugins:
+  - rubocop-performance
+AllCops:
+  TargetRubyVersion: 3.2
+  TargetRailsVersion: 6.0
+  UseCache: true
+  CacheRootDirectory: tmp/cache
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'storage/**/*'
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'config/routes.rb'
+    - 'config/environments/*.rb'
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Max: 30
+
+Layout/LineLength:
+  Max: 120

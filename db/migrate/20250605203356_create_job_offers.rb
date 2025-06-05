@@ -2,14 +2,16 @@ class CreateJobOffers < ActiveRecord::Migration[8.0]
   def change
     create_table :job_offers do |t|
       t.references :company, null: false, foreign_key: true
+      t.references :job_offer_reference, null: false, foreign_key: true
       t.integer :status, default: 0
       t.string :name
-      t.string :public_name
       t.string :description
       t.string :requirements
       t.string :job_area
+      t.string :job_department
+      t.string :job_division
       t.string :job_type
-      t.string :job_schedule
+      t.integer :job_schedule
       t.integer :vacancies_count
       t.boolean :show_location
       t.string :location

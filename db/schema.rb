@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_03_200945) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_05_203356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,25 +26,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_03_200945) do
   end
 
   create_table "job_offer_references", force: :cascade do |t|
-    t.bigint "job_offer_id", null: false
     t.integer "source"
     t.string "external_id"
     t.string "external_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["job_offer_id"], name: "index_job_offer_references_on_job_offer_id"
   end
 
   create_table "job_offers", force: :cascade do |t|
     t.bigint "company_id", null: false
+    t.bigint "job_offer_reference_id", null: false
     t.integer "status", default: 0
     t.string "name"
-    t.string "public_name"
     t.string "description"
     t.string "requirements"
     t.string "job_area"
+    t.string "job_department"
+    t.string "job_division"
     t.string "job_type"
-    t.string "job_schedule"
+    t.integer "job_schedule"
     t.integer "vacancies_count"
     t.boolean "show_location"
     t.string "location"
@@ -58,8 +58,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_03_200945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_job_offers_on_company_id"
+    t.index ["job_offer_reference_id"], name: "index_job_offers_on_job_offer_reference_id"
   end
 
-  add_foreign_key "job_offer_references", "job_offers"
   add_foreign_key "job_offers", "companies"
+  add_foreign_key "job_offers", "job_offer_references"
 end
