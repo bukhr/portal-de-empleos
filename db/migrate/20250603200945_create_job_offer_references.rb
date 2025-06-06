@@ -4,6 +4,7 @@ class CreateJobOfferReferences < ActiveRecord::Migration[8.0]
       t.integer :source
       t.string :external_id
       t.string :external_url
+      t.string :public_token
       t.timestamps
     end
   end

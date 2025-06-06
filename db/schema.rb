@@ -29,6 +29,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_203356) do
     t.integer "source"
     t.string "external_id"
     t.string "external_url"
+    t.string "public_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
