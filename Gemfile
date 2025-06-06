@@ -22,6 +22,17 @@ gem 'bootsnap', require: false
 gem 'kamal', require: false
 gem 'thruster', require: false
 
+# HTTP client for API calls
+gem 'rest-client'
+gem 'aws-sdk-s3', '~> 1.131.0', require: false
+gem 'aws-sdk-secretsmanager', '~> 1.67', require: false
+
+# Debugging
+gem 'pry'
+gem 'pry-rails'
+gem 'pry-byebug'
+
+# Type checking
 
 # Pagination
 gem 'kaminari'
@@ -37,6 +48,7 @@ group :development, :test do
   gem 'faker'
   gem 'sorbet'
   gem 'tapioca', require: false
+  gem 'sorbet-runtime'
 end
 
 group :development do
