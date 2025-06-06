@@ -1,60 +1,26 @@
 <section class="py-12 min-h-screen">
   <div class="max-w-5xl mx-auto px-4">
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+
+      <div class="flex justify-end mb-6">
+        <div class="inline-flex items-center space-x-2 text-sm">
+          <%# <%= link_to "V1", url_for(params.permit!.merge(layout: 'v1')), class: "px-4 py-2 rounded-lg border #{params[:layout] == 'v1' || params[:layout].blank? ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'} transition" %>
+          <%# <%= link_to "V2", url_for(params.permit!.merge(layout: 'v2')), class: "px-4 py-2 rounded-lg border #{params[:layout] == 'v2' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'} transition" %>
+          <%# <%= link_to "V3", url_for(params.permit!.merge(layout: 'v3')), class: "px-4 py-2 rounded-lg border #{params[:layout] == 'v3' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'} transition" %>
+          <%# <%= link_to "V4", url_for(params.permit!.merge(layout: 'v4')), class: "px-4 py-2 rounded-lg border #{params[:layout] == 'v4' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'} transition" %>
+        </div>
+      </div>
+
+      <!-- Contenido dinámico -->
+      <%= render "job_offers/layouts/v1", job_offers: @job_offers %>
+
+
       <!-- Sin resultados -->
       <% if @job_offers.empty? %>
         <div class="text-center text-gray-500 py-8">No se encontraron resultados.</div>
       <% end %>
 
       <!-- Paginación -->
-      <% if @job_offers.any? %>
-          <div class="divide-y divide-gray-100">
-            <% @job_offers.each do |job_offer| %>
-              <div class="flex flex-col md:flex-row md:items-center justify-between py-5 hover:bg-gray-50 transition p-8">
-                <div>
-                  <div class="flex items-center gap-3 mb-2">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-lg overflow-hidden" style="background-color: <%= job_offer.company.background_color %>">
-                      <%= image_tag(job_offer.company.image_url.presence || asset_path('placeholder.png'), style: "width: 40px; height: 40px; object-fit: cover;", alt: job_offer.company.name) %>
-                    </div>
-                    <%= link_to job_offer.name, job_offer_path(job_offer), class: "text-lg font-semibold text-primary hover:underline" %>
-                  </div>
-                  <div class="flex items-center text-gray-400 text-sm mt-1 gap-2">
-                    <%# Icono de ubicación + %>
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span><%= job_offer.company.country %></span>
-
-                    <%# Icono de empresa + link a la empresa %>
-                    <span class="mx-1">|</span>
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0c-3.866 0-7 3.134-7 7 0 1.657 1.343 3 3 3h8c1.657 0 3-1.343 3-3 0-3.866-3.134-7-7-7z" />
-                    </svg>
-                    <%= link_to job_offer.company.name.capitalize, "#{job_offer.external_url}", target: "_blank", rel: "noopener", class: "font-semibold text-primary hover:underline" %>
-
-                    <%# Icono de área + área %>
-                    <span class="mx-1">|</span>
-                      <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                      </svg>
-                    <span><%= job_offer.job_area %></span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3 mt-4 md:mt-0">
-                  <span class="inline-block bg-success/10 text-success text-xs font-semibold px-3 py-1 rounded-full border border-success/20">
-                    <%= job_offer.job_type&.humanize %>
-                  </span>
-                  <% if job_offer.show_published_at? %>
-                    <span class="text-gray-400 text-xs"><%= job_offer.published_at&.strftime('%d/%m/%Y') %></span>
-                  <% end %>
-                  <%= link_to "Ver", job_offer_path(job_offer), class: "ml-2 text-primary hover:text-primary/80 font-semibold text-sm bg-gray-100 px-3 py-1 rounded-full" %>
-                  <%= link_to "Postular", safe_external_url(job_offer.external_url), target: '_blank', class: "ml-2 text-primary hover:text-primary/80 font-semibold text-sm bg-gray-100 px-3 py-1 rounded-full" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-      <% end %>
       <% if @job_offers.total_pages > 1 %>
         <div class="mt-8 flex justify-center">
           <%= paginate @job_offers, theme: 'tailwind' %>

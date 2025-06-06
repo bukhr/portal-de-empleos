@@ -1,0 +1,44 @@
+<section class="bg-gray-50 py-12 min-h-screen">
+  <div class="max-w-6xl mx-auto px-4">
+    <h1 class="text-3xl font-bold text-gray-900 mb-10 text-center">Empresas activas</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <% @companies.each do |company| %>
+        <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow p-6 flex flex-col items-center border border-gray-100 group">
+          <!-- Logo de la empresa -->
+          <div class="w-20 h-20 rounded-lg overflow-hidden mb-4 flex items-center justify-center group-hover:scale-105 transition-transform duration-200" style="background-color: <%= company.background_color || '#f3f4f6' %>">
+            <%= image_tag(company.image_url.presence || asset_path('placeholder.png'), style: "width: 80px; height: 80px; object-fit: cover;", alt: company.name) %>
+          </div>
+          
+          <!-- Nombre de la empresa -->
+          <h2 class="text-lg font-semibold text-gray-800 mb-3 text-center truncate w-full">
+            <%= company.name.capitalize %>
+          </h2>
+          
+          <!-- Ubicación con SVG -->
+          <div class="flex items-center gap-2 mb-4 text-gray-600">
+            <svg class="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span class="text-sm font-medium"><%= company.country.capitalize %></span>
+          </div>
+          
+          <!-- Botón de acción -->
+          <div class="flex flex-col gap-2 w-full mt-auto">
+            <%= link_to 'Ver ofertas', job_offers_path(company_id: company.id), class: "w-full text-center px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    
+    <!-- Sin resultados -->
+    <% if @companies.empty? %>
+      <div class="text-center text-gray-500 py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <p class="text-lg">No hay empresas activas en este momento.</p>
+      </div>
+    <% end %>
+  </div>
+</section>

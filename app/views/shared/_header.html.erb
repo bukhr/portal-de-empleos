@@ -1,0 +1,24 @@
+<header class="bg-gradient-to-r from-primary to-blue-600 shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-4 h-16">
+      <!-- Enhanced Logo -->
+      <%= link_to root_path, class: "flex-shrink-0 group" do %>
+        <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition-all duration-300 group-hover:scale-105 shadow-lg">
+          <%= image_tag "buk-blue.svg", class: "w-6 h-6", alt: "Portal de Empleos" %>
+        </div>
+      <% end %>
+
+      <!-- Enhanced Search -->
+      <div class="flex-1">
+        <%= form_with url: job_offers_path, method: :get, local: true, class: "relative" do |f| %>
+          <div class="relative">
+            <%= f.text_field :search,
+                placeholder: "¿Qué trabajo buscas hoy?",
+                class: "w-full px-6 py-3 rounded-full bg-white text-gray-800 placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 focus:text-left",
+                value: params[:search] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header> 

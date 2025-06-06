@@ -19,7 +19,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0c-3.866 0-7 3.134-7 7 0 1.657 1.343 3 3 3h8c1.657 0 3-1.343 3-3 0-3.866-3.134-7-7-7z" />
             </svg>
             <span>
-              <%= link_to @job_offer.company.name, "#{@job_offer.company}/trabaja-con-nosotros", target: "_blank", rel: "noopener", class: "font-semibold text-primary hover:underline" %>
+              <%= link_to @job_offer.company.name.capitalize, "#{@job_offer.external_url}", target: "_blank", rel: "noopener", class: "font-semibold text-primary hover:underline" %>
             </span>
           </div>
           
@@ -60,6 +60,15 @@
               </div>
             </div>
           <% end %>
+
+          <% if @job_offer.requirements.present? %>
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold text-gray-900 mb-4">Requisitos</h2>
+              <div class="prose max-w-none">
+                <%= simple_format @job_offer.requirements %>
+              </div>
+            </div>
+          <% end %>
         </div>
 
         <!-- Sidebar con botón de postulación -->
@@ -68,7 +77,7 @@
             <div class="text-center mb-6">
               <p class="text-sm text-gray-500 mb-2">Publicado el <%= @job_offer.published_at&.strftime('%d/%m/%Y') %></p>
             </div>
-            <%= link_to "Postular ahora", safe_external_url(@job_offer.external_url), target: '_blank', class: "w-full bg-primary hover:bg-primary/90 font-semibold px-6 py-3 rounded-lg shadow transition text-center block" %>
+            <%= link_to "Postular ahora", safe_external_url(@job_offer.external_url), target: '_blank', class: "w-full bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg shadow transition text-center block" %>
           </div>
         </div>
       </div>
