@@ -28,6 +28,14 @@ class JobOfferTest < ActiveSupport::TestCase
     assert_includes job_offer.errors[:company], 'must exist'
   end
 
+  test 'should require a job offer reference' do
+    job_offer = JobOffer.new(
+      name: 'Desarrollador Ruby',
+      status: :draft
+    )
+    assert_not job_offer.valid?
+  end
+
   test 'should have valid status' do
     job_offer = JobOffer.new(
       company: @company,

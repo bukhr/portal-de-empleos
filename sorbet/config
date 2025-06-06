@@ -1,0 +1,11 @@
+--dir
+.
+--cache-dir
+tmp/cache/sorbet
+--ignore=.bundle
+--ignore=vendor/bundle
+--ignore=tmp
+--ignore=node_modules
+--ignore=db
+--ignore=.git
+--ignore=test

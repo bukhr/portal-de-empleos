@@ -35,6 +35,8 @@ group :development, :test do
   # Gems added
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'sorbet'
+  gem 'tapioca', require: false
 end
 
 group :development do
